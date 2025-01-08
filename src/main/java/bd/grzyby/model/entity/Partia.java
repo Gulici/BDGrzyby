@@ -19,19 +19,22 @@ public class Partia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "id_zlecenia")
-    private Long zlecenieId;
-    @Column(name = "id_gatunku")
-    private Long gatunekId;
-    @Column(name = "id_pom")
-    private Long pomieszczenieId;
+    @ManyToOne
+    @JoinColumn(name = "id_zlecenia")
+    private Zlecenie zlecenie;
+    @ManyToOne
+    @JoinColumn(name = "id_gatunek")
+    private Gatunek gatunek;
+    @ManyToOne
+    @JoinColumn(name = "id_pom")
+    private Pomieszczenie pomieszczenie;
     private int etap;
     private Date data;
 
-    public Partia(Long zlecenieId, Long gatunekId, Long pomieszczenieId, int etap, Date data) {
-        this.zlecenieId = zlecenieId;
-        this.gatunekId = gatunekId;
-        this.pomieszczenieId = pomieszczenieId;
+    public Partia(Zlecenie zlecenie, Gatunek gatunek, Pomieszczenie pomieszczenie, int etap, Date data) {
+        this.zlecenie = zlecenie;
+        this.gatunek = gatunek;
+        this.pomieszczenie = pomieszczenie;
         this.etap = etap;
         this.data = data;
     }

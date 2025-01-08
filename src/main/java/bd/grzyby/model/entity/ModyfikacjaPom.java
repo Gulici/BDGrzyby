@@ -19,25 +19,27 @@ public class ModyfikacjaPom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "id_partii")
-    private Long idPartii;
+    @ManyToOne
+    @JoinColumn(name = "id_partii")
+    private Partia partia;
     @Column(name = "pom_p")
     private int idPomPocz;
     @Column(name = "pom_d")
     private int idPomDocel;
     @Column(name = "data")
     private Date data;
-    @Column(name = "id_pracownik")
-    private Long idPracownik;
+    @ManyToOne
+    @JoinColumn(name = "id_pracownik")
+    private Pracownik pracownik;
     @Column(name = "etap")
     private int etap;
 
-    public ModyfikacjaPom(Long idPartii, int idPomPocz, int idPomDocel, Date data, Long idPracownik, int etap) {
-        this.idPartii = idPartii;
+    public ModyfikacjaPom(Partia partia, int idPomPocz, int idPomDocel, Date data, Pracownik pracownik, int etap) {
+        this.partia = partia;
         this.idPomPocz = idPomPocz;
         this.idPomDocel = idPomDocel;
         this.data = data;
-        this.idPracownik = idPracownik;
+        this.pracownik = pracownik;
         this.etap = etap;
     }
 }

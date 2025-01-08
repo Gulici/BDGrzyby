@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,7 +22,11 @@ public class Klient {
     private String firma;
     private String imie;
     private String nazwisko;
+    @Column(unique = true)
     private String email;
+    @OneToMany(mappedBy = "klient")
+    @ToString.Exclude
+    private List<Zlecenie> zlecenia;
 
     public Klient(String firma, String imie, String nazwisko, String email) {
         this.firma = firma;

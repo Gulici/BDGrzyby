@@ -15,14 +15,18 @@ public class DetaleZlecenia {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idGatunek;
-    private Long idZlecenie;
+    @ManyToOne
+    @JoinColumn(name = "id_gatunek")
+    private Gatunek gatunek;
+    @ManyToOne
+    @JoinColumn(name = "id_zlecenie")
+    private Zlecenie zlecenie;
     private int ilosc;
     private int rodzaj;
 
-    public DetaleZlecenia(Long idGatunek, Long idZlecenie, int ilosc, int rodzaj) {
-        this.idGatunek = idGatunek;
-        this.idZlecenie = idZlecenie;
+    public DetaleZlecenia(Gatunek gatunek, Zlecenie zlecenie, int ilosc, int rodzaj) {
+        this.gatunek = gatunek;
+        this.zlecenie = zlecenie;
         this.ilosc = ilosc;
         this.rodzaj = rodzaj;
     }

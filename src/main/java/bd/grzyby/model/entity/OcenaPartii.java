@@ -16,12 +16,13 @@ import java.util.Date;
 @ToString
 public class OcenaPartii {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "id_partii")
     private Partia partia;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_detale")
     private DetaleOceny detale;
     @ManyToOne

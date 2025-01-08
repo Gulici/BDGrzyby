@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 public class Uprawnienie {
@@ -26,4 +25,6 @@ public class Uprawnienie {
     public Uprawnienie(String nazwa) {
         this.nazwa = nazwa;
     }
+
+    public Uprawnienie() {}
 }

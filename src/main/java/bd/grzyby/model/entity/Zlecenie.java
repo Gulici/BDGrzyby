@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Zlecenie {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
     @ManyToOne
@@ -24,11 +25,19 @@ public class Zlecenie {
     private Klient klient;
     private Date data;
 
-    @OneToMany(mappedBy = "zlecenie")
+    @OneToMany(mappedBy = "zlecenie", cascade = CascadeType.ALL)
     private List<DetaleZlecenia> detaleZlecenia;
 
     public Zlecenie(Klient klient, Date data) {
         this.klient = klient;
         this.data = data;
+        this.detaleZlecenia = new ArrayList<>();
     }
+
+    public Zlecenie() {}
+
+    public List<DetaleZlecenia> getDetaleZlecenia() {
+        return detaleZlecenia;
+    }
+
 }

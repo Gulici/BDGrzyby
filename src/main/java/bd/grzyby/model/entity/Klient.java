@@ -1,10 +1,7 @@
 package bd.grzyby.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Table(name = "Klienci")
 public class Klient {
     @Id
@@ -34,4 +30,6 @@ public class Klient {
         this.nazwisko = nazwisko;
         this.email = email;
     }
+
+    public Klient() {}
 }

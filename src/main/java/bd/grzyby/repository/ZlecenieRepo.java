@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ZlecenieRepo extends JpaRepository<Zlecenie, Long> {
+    Zlecenie getZlecenieById(Long i);
 }

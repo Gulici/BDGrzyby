@@ -9,7 +9,6 @@ import lombok.ToString;
 @Entity
 @Setter
 @Getter
-@RequiredArgsConstructor
 @ToString
 @Table(name = "Gatunki")
 public class Gatunek {
@@ -25,4 +24,6 @@ public class Gatunek {
         this.nazwa = nazwa;
         this.cena = cena;
     }
+
+    public Gatunek() {}
 }

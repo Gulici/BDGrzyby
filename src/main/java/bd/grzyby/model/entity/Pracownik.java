@@ -1,11 +1,9 @@
 package bd.grzyby.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Pracownik {
     @Id
     @Column(nullable = false)
@@ -42,7 +39,7 @@ public class Pracownik {
     @JoinTable(
             name = "pracownik_uprawnienie",
             joinColumns = @JoinColumn(name = "id_pracownik"),
-            inverseJoinColumns = @JoinColumn(name = "id_pomieszczenie")
+            inverseJoinColumns = @JoinColumn(name = "id_uprawnienie")
     )
     private Set<Uprawnienie> uprawnienia;
 
@@ -51,5 +48,13 @@ public class Pracownik {
         this.nazwisko = nazwisko;
         this.email = email;
         this.password = password;
+        this.uprawnienia = new HashSet<>();
+    }
+
+    public Pracownik() {
+    }
+
+    public Set<Uprawnienie> getUprawnienia() {
+        return uprawnienia;
     }
 }

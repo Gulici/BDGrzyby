@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PomieszczenieRepo extends JpaRepository<Pomieszczenie, Long> {
+    Pomieszczenie getPomieszczenieById(long l);
 }

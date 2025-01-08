@@ -21,8 +21,4 @@ public class Pomieszczenie {
 
     @ManyToMany(mappedBy = "pomieszczenia", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Pracownik> pracownicy;
-
-    public Pomieszczenie(Long id) {
-        this.id = id;
-    }
 }

@@ -33,5 +33,4 @@ public class GatunekService {
     public Gatunek getGatunekByName(String name) {
         return gatunekRepo.findGatunekByNazwa(name);
     }
-
 }

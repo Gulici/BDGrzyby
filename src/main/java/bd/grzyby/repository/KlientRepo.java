@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KlientRepo extends JpaRepository<Klient, Long> {
+    Klient getKlientByFirma(String firma);
 }

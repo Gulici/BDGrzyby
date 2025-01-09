@@ -15,7 +15,7 @@ public class Partia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_zlecenia")
     private Zlecenie zlecenie;
     @ManyToOne

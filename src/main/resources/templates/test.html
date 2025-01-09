@@ -20,5 +20,35 @@
   </li>
 </ul>
 
+<h2>Gatunki</h2>
+<ul>
+    <li th:each="gatunek : ${gatunki}">
+        <span th:text="${gatunek.id}"></span>
+        <span th:text="${gatunek.nazwa}"></span>
+        <span th:text="${gatunek.cena}"></span>
+    </li>
+</ul>
+
+<h2>Zlecenia</h2>
+<ul>
+    <li th:each="zlecenie : ${zlecenia}">
+        <span th:text="${zlecenie.id}"></span>
+        <span th:text="${zlecenie.klient.firma}"></span>
+        <h4>Detale zlecenia</h4>
+        <span th:each="detal : ${zlecenie.detaleZlecenia}">
+            <span th:text="${detal.id}"></span>
+            <span th:text="${detal.gatunek.nazwa}"></span>
+            <span th:text="${detal.ilosc}"></span>
+        </span>
+    </li>
+</ul>
+
+<h2>Partie</h2>
+<ul>
+    <li th:each="partia : ${partie}">
+        <span th:text="${partia.getEtap()}"></span>
+    </li>
+</ul>
+
 </body>
 </html>

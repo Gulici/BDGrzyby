@@ -3,7 +3,7 @@ spring:
     name: grzyby
 
   datasource:
-    url: jdbc:mysql://localhost:3306/grzyby
+    url: jdbc:mysql://localhost:5001/Grzyby
     username: root
     password: toor
 

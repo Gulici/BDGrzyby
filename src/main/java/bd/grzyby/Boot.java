@@ -1,8 +1,12 @@
 package bd.grzyby;
 
+import bd.grzyby.model.dto.CreatePartiaForm;
+import bd.grzyby.model.dto.OcenaPartiiForm;
 import bd.grzyby.model.entity.*;
 import bd.grzyby.repository.*;
 import bd.grzyby.service.GatunekService;
+import bd.grzyby.service.ModyfikacjaPomService;
+import bd.grzyby.service.PartiaService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +24,11 @@ public class Boot implements CommandLineRunner {
     private final PartiaRepo partiaRepo;
     private final OcenaPartiiRepo ocenaPartiiRepo;
     private final DetaleOcenyRepo detaleOcenyRepo;
+    private final PartiaService partiaService;
+    private final ModyfikacjaPomService modyfikacjaPomService;
+    private final ModyfikacjaPomRepo modyfikacjaPomRepo;
 
-    public Boot(GatunekService gatunekService, PomieszczenieRepo pomieszczenieRepo, KlientRepo klientRepo, ZlecenieRepo zlecenieRepo, DetaleZleceniaRepo detaleZleceniaRepo, PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo, PartiaRepo partiaRepo, OcenaPartiiRepo ocenaPartiiRepo, DetaleOcenyRepo detaleOcenyRepo) {
+    public Boot(GatunekService gatunekService, PomieszczenieRepo pomieszczenieRepo, KlientRepo klientRepo, ZlecenieRepo zlecenieRepo, DetaleZleceniaRepo detaleZleceniaRepo, PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo, PartiaRepo partiaRepo, OcenaPartiiRepo ocenaPartiiRepo, DetaleOcenyRepo detaleOcenyRepo, PartiaService partiaService, ModyfikacjaPomService modyfikacjaPomService, ModyfikacjaPomRepo modyfikacjaPomRepo) {
         this.gatunekService = gatunekService;
         this.pomieszczenieRepo = pomieszczenieRepo;
         this.klientRepo = klientRepo;
@@ -32,6 +39,9 @@ public class Boot implements CommandLineRunner {
         this.partiaRepo = partiaRepo;
         this.ocenaPartiiRepo = ocenaPartiiRepo;
         this.detaleOcenyRepo = detaleOcenyRepo;
+        this.partiaService = partiaService;
+        this.modyfikacjaPomService = modyfikacjaPomService;
+        this.modyfikacjaPomRepo = modyfikacjaPomRepo;
     }
 
     @Override
@@ -43,32 +53,32 @@ public class Boot implements CommandLineRunner {
         dodajUprawnienia();
         dodajPracownikow();
         dodajPartie();
+        dodajModPom();
+        usunPartie();
+    }
+
+    private void usunPartie() {
+        partiaService.usunPartie(1L);
+    }
+
+
+    private void dodajModPom() {
+        if(modyfikacjaPomRepo.findAll().isEmpty()) {
+            partiaService.przeniesPartie(1L,3L,1L);
+            partiaService.przeniesPartie(2L,2L,1L);
+        }
     }
 
     private void dodajPartie() {
         if(partiaRepo.findAll().isEmpty()) {
-            Zlecenie zlecenie = zlecenieRepo.getZlecenieById(1L);
-            Gatunek gatunek = gatunekService.getGatunekByName("Pieczarka");
-            Pomieszczenie pomieszczenie = pomieszczenieRepo.getPomieszczenieById(1L);
-            Partia partia = new Partia();
-            partia.setZlecenie(zlecenie);
-            partia.setGatunek(gatunek);
-            partia.setPomieszczenie(pomieszczenie);
-            partia.setData(new Date());
-            partia.setEtap(1);
+            CreatePartiaForm form = new CreatePartiaForm(1L,2L,1L,1L,10);
+            partiaService.dodajNowaPartie(form);
 
-            OcenaPartii ocenaPartii = new OcenaPartii();
-            ocenaPartii.setPartia(partia);
-            Pracownik pracownik = pracownikRepo.getPracownikById(1L);
-            ocenaPartii.setPracownik(pracownik);
-            ocenaPartii.setData(new Date());
-            ocenaPartii.setEtap(1);
-            DetaleOceny detaleOceny = new DetaleOceny();
-            detaleOceny.setOpis("Zasianie");
-            ocenaPartii.setDetale(detaleOceny);
+            CreatePartiaForm form2 = new CreatePartiaForm(1L,1L,1L,1L,10);
+            partiaService.dodajNowaPartie(form2);
 
-            partia.getOcenyPartii().add(ocenaPartii);
-            partiaRepo.save(partia);
+            OcenaPartiiForm ocenaPartiiForm = new OcenaPartiiForm(1L,1L,5,"Ocena test");
+            partiaService.ocenPartie(ocenaPartiiForm);
         }
     }
 

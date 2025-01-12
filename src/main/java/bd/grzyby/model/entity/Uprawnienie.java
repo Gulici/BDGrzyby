@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -27,4 +28,17 @@ public class Uprawnienie {
     }
 
     public Uprawnienie() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Uprawnienie that = (Uprawnienie) o;
+        return Objects.equals(nazwa, that.nazwa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(nazwa);
+    }
 }

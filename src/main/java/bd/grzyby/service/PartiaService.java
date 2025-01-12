@@ -3,7 +3,6 @@ package bd.grzyby.service;
 import bd.grzyby.model.dto.CreatePartiaForm;
 import bd.grzyby.model.dto.OcenaPartiiForm;
 import bd.grzyby.model.entity.*;
-import bd.grzyby.repository.OcenaPartiiRepo;
 import bd.grzyby.repository.PartiaRepo;
 import org.springframework.stereotype.Service;
 

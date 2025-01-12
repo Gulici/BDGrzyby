@@ -2,11 +2,13 @@ package bd.grzyby;
 
 import bd.grzyby.model.dto.CreatePartiaForm;
 import bd.grzyby.model.dto.OcenaPartiiForm;
+import bd.grzyby.model.dto.PracownikForm;
 import bd.grzyby.model.entity.*;
 import bd.grzyby.repository.*;
 import bd.grzyby.service.GatunekService;
 import bd.grzyby.service.ModyfikacjaPomService;
 import bd.grzyby.service.PartiaService;
+import bd.grzyby.service.PracownikService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +29,9 @@ public class Boot implements CommandLineRunner {
     private final PartiaService partiaService;
     private final ModyfikacjaPomService modyfikacjaPomService;
     private final ModyfikacjaPomRepo modyfikacjaPomRepo;
+    private final PracownikService pracownikService;
 
-    public Boot(GatunekService gatunekService, PomieszczenieRepo pomieszczenieRepo, KlientRepo klientRepo, ZlecenieRepo zlecenieRepo, DetaleZleceniaRepo detaleZleceniaRepo, PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo, PartiaRepo partiaRepo, OcenaPartiiRepo ocenaPartiiRepo, DetaleOcenyRepo detaleOcenyRepo, PartiaService partiaService, ModyfikacjaPomService modyfikacjaPomService, ModyfikacjaPomRepo modyfikacjaPomRepo) {
+    public Boot(GatunekService gatunekService, PomieszczenieRepo pomieszczenieRepo, KlientRepo klientRepo, ZlecenieRepo zlecenieRepo, DetaleZleceniaRepo detaleZleceniaRepo, PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo, PartiaRepo partiaRepo, OcenaPartiiRepo ocenaPartiiRepo, DetaleOcenyRepo detaleOcenyRepo, PartiaService partiaService, ModyfikacjaPomService modyfikacjaPomService, ModyfikacjaPomRepo modyfikacjaPomRepo, PracownikService pracownikService) {
         this.gatunekService = gatunekService;
         this.pomieszczenieRepo = pomieszczenieRepo;
         this.klientRepo = klientRepo;
@@ -42,6 +45,7 @@ public class Boot implements CommandLineRunner {
         this.partiaService = partiaService;
         this.modyfikacjaPomService = modyfikacjaPomService;
         this.modyfikacjaPomRepo = modyfikacjaPomRepo;
+        this.pracownikService = pracownikService;
     }
 
     @Override
@@ -55,6 +59,8 @@ public class Boot implements CommandLineRunner {
         dodajPartie();
         dodajModPom();
         usunPartie();
+
+
     }
 
     private void usunPartie() {
@@ -92,14 +98,17 @@ public class Boot implements CommandLineRunner {
 
     private void dodajPracownikow() {
         if(pracownikRepo.findAll().isEmpty()) {
-            Pracownik pracownik = new Pracownik("Kamil", "Slimak", "k.s@gmail.com", "pass");
-            Uprawnienie u1 = uprawnienieRepo.findByNazwa("PRACOWNIK");
-            Uprawnienie u2 = uprawnienieRepo.findByNazwa("KIEROWNIK");
+            PracownikForm form = new PracownikForm("Kamil", "Slimak", "k.s@gmail.com", "pass");
+            pracownikService.dodajPracownik(form);
+            Pracownik pracownik = pracownikRepo.getPracownikByEmail(form.getEmail());
 
-            pracownik.getUprawnienia().add(u1);
-            pracownik.getUprawnienia().add(u2);
+            pracownikService.nadajUprawnieniaKierownika(pracownik.getId());
+            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
+            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
 
-            pracownikRepo.save(pracownik);
+            pracownikService.nadajUprawnieniaManagera(pracownik.getId());
+            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
+            pracownikService.usunUprawnieniaManagera(pracownik.getId());
         }
     }
 

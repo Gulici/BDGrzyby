@@ -90,9 +90,9 @@ public class Boot implements CommandLineRunner {
 
     private void dodajUprawnienia() {
         if(uprawnienieRepo.findAll().isEmpty()) {
-            uprawnienieRepo.save(new Uprawnienie("PRACOWNIK"));
-            uprawnienieRepo.save(new Uprawnienie("KIEROWNIK"));
-            uprawnienieRepo.save(new Uprawnienie("MANAGER"));
+            uprawnienieRepo.save(new Uprawnienie("ROLE_PRACOWNIK"));
+            uprawnienieRepo.save(new Uprawnienie("ROLE_KIEROWNIK"));
+            uprawnienieRepo.save(new Uprawnienie("ROLE_MANAGER"));
         }
     }
 

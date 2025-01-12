@@ -7,6 +7,8 @@ import bd.grzyby.model.entity.Uprawnienie;
 import bd.grzyby.repository.OcenaPartiiRepo;
 import bd.grzyby.repository.PracownikRepo;
 import bd.grzyby.repository.UprawnienieRepo;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +19,21 @@ public class PracownikService {
     PracownikRepo pracownikRepo;
     UprawnienieRepo uprawnienieRepo;
     OcenaPartiiRepo ocenaPartiiRepo;
+    PasswordEncoder passwordEncoder;
 
     public PracownikService(PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo,OcenaPartiiRepo ocenaPartiiRepo) {
         this.pracownikRepo = pracownikRepo;
         this.uprawnienieRepo = uprawnienieRepo;
         this.ocenaPartiiRepo = ocenaPartiiRepo;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public Pracownik getPracownik(Long id) {
         return pracownikRepo.getPracownikById(id);
+    }
+
+    public Pracownik getPracownik(String email) {
+        return pracownikRepo.getPracownikByEmail(email);
     }
 
     public void nadajUprawnieniaKierownika(Long idPracownik) {
@@ -39,7 +47,7 @@ public class PracownikService {
         List<Pracownik> list = pracownikRepo.getPracowniksByEmail(form.getEmail());
         if(list.isEmpty()) {
             Pracownik pracownik = new Pracownik(form.getImie(), form.getNazwisko(),
-                    form.getEmail(), form.getPassword());
+                    form.getEmail(), passwordEncoder.encode(form.getPassword()));
             Uprawnienie u = uprawnienieRepo.getUprawnienieById(1L);
             pracownik.getUprawnienia().add(u);
             pracownikRepo.save(pracownik);

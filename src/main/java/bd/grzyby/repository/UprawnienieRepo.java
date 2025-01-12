@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UprawnienieRepo extends JpaRepository<Uprawnienie, Long> {
     Uprawnienie findByNazwa(String pracownik);
+
+    Uprawnienie getUprawnienieById(Long l);
 }

@@ -27,7 +27,7 @@ public class Partia {
     private int etap;
     private Date data;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "partia")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "partia")
     private List<OcenaPartii> ocenyPartii;
 
     public Partia(Zlecenie zlecenie, Gatunek gatunek, Pomieszczenie pomieszczenie, int etap, Date data) {

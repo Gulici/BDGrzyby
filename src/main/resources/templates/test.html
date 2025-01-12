@@ -20,6 +20,11 @@
   </li>
 </ul>
 
+<h2>Obecnie zalogowany pracownik</h2>
+<ul>
+    <p><span th:text="${pracownik.imie}"></span> <span th:text="${pracownik.nazwisko}"></span></p>
+</ul>
+
 <h2>Gatunki</h2>
 <ul>
     <li th:each="gatunek : ${gatunki}">

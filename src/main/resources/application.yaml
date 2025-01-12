@@ -17,4 +17,4 @@ spring:
       password: admin
 
   profiles:
-    active: development
+    active: security

@@ -25,13 +25,13 @@
         <nav>
             <ul class="nav nav-pills justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Strona główna <span class="sr-only"></span></a>
+                    <a class="nav-link active" href="../landingPage">Strona główna <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">O projekcie</a>
+                    <a class="nav-link" href="../aboutproject">O projekcie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Autorzy</a>
+                    <a class="nav-link" href="../signin">Autorzy</a>
                 </li>
             </ul>
         </nav>
@@ -45,9 +45,9 @@
         <img src="../static/landingPageThemeImage.jpg" alt="Mushroom Fields" class="img-fluid mx-auto d-block mb-4" style="max-width: 40%; height: auto;">
         <hr class="my-4">
         <p>Dostęp do bazy danych Pieczarkarni jedynie dla zalogowanych pracowników.</p>
-        <p class="lead">
-            <button type="button" class="btn btn-primary">Zaloguj się!</button>
-        </p>
+        <form action="../signin">
+            <button type="submit" class="btn btn-primary">Zaloguj się!</button>
+        </form>
     </div>
 
     <footer class="footer text-center mt-auto">

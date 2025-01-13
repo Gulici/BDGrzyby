@@ -64,35 +64,26 @@
             <button type="button" class="btn btn-secondary">Usuń Pracownika</button>
         </div>
 
-        <hr class="my-4">
-        <p><table class="table" style="">
-        <thead>			<tr>			  <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>			</tr>
+        <!-- Dynamic Table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+        </tr>
         </thead>
         <tbody>
-        <tr>			  <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-
-        <tr>			  <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-
-        <tr>			  <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+        <!-- Thymeleaf Loop -->
+        <tr th:each="pracownik, iterStat : ${pracownicy}">
+            <th scope="row" th:text="${iterStat.index + 1}"></th>
+            <td th:text="${pracownik.imie}"></td>
+            <td th:text="${pracownik.nazwisko}"></td>
+            <td th:text="${pracownik.email}"></td>
         </tr>
         </tbody>
-        </table>
-
-        </p>
+    </table>
     </div>
 
 </div>

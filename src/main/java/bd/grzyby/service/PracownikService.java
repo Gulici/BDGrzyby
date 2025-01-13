@@ -101,5 +101,9 @@ public class PracownikService {
         }
         else return false;
     }
+
+    public List<Pracownik> findAllPracownicy() {
+        return pracownikRepo.findAll();
+    }
 }
 

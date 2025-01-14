@@ -55,4 +55,8 @@ public class ZlecenieService {
     public Zlecenie getZlecenieById(Long idZlecenie) {
         return zlecenieRepo.getZlecenieById(idZlecenie);
     }
+
+    public List<Zlecenie> getAllZlecenia() {
+        return zlecenieRepo.findAll();
+    }
 }

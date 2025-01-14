@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zlecenia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="justify-content-center">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/landingPage">Pieczarkarnia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/Pracownik">Pracownicy</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/zlecenie">Zlecenia</a></li>
+                <li class="nav-item"><a class="nav-link" href="/partie">Partie</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gatunki">Gatunki</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron text-center" style="padding: 30px;">
+    <h2>Tabela Zleceń</h2>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <form th:action="@{/zlecenia/add}" method="get">
+            <button type="submit" class="btn btn-secondary">Dodaj Zlecenie</button>
+        </form>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Klient</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="zlecenie, iterStat : ${zlecenia}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${zlecenie.id}"></td>
+                <td th:text="${zlecenie.data}"></td>
+                <td th:text="${zlecenie.klient}"></td>
+                <td>
+                    <a th:href="@{/zlecenia/edit/{id}(id=${zlecenie.id})}" class="btn btn-primary btn-sm">Edytuj</a>
+                    <a th:href="@{/zlecenia/detale/{id}(id=${zlecenie.id})}" class="btn btn-primary btn-sm">Detale</a>
+                    <a th:href="@{/zlecenia/delete/{id}(id=${zlecenie.id})}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete this record?');">Usuń</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer text-center mt-auto">
+    <p>© Informatyka Techniczna - Bazy Danych Projekt 2024</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

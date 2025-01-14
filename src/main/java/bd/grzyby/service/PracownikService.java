@@ -36,6 +36,10 @@ public class PracownikService {
         return pracownikRepo.getPracownikByEmail(email);
     }
 
+    public List<Pracownik> getPracownicy() {
+        return pracownikRepo.findAll();
+    }
+
     public void nadajUprawnieniaKierownika(Long idPracownik) {
         Pracownik pracownik = getPracownik(idPracownik);
         Uprawnienie uprawnienie = uprawnienieRepo.getUprawnienieById(2L);
@@ -102,8 +106,15 @@ public class PracownikService {
         else return false;
     }
 
-    public List<Pracownik> findAllPracownicy() {
-        return pracownikRepo.findAll();
+    public boolean updatePracownik(Pracownik updatedPracownik) {
+        Pracownik existingPracownik = pracownikRepo.findById(updatedPracownik.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid employee ID"));
+        existingPracownik.setImie(updatedPracownik.getImie());
+        existingPracownik.setNazwisko(updatedPracownik.getNazwisko());
+        existingPracownik.setEmail(updatedPracownik.getEmail());
+        // Optionally handle password update here
+        pracownikRepo.save(existingPracownik);
+        return true;
     }
 }
 

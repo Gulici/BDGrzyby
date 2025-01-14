@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BD Projekt</title>
+</head>
+<body>
+    <h1>Edytuj Pracownika</h1>
+    <form th:action="@{/pracownicy/edit/{id}(id=${pracownik.id})}" th:object="${pracownik}" method="post">
+        <div>
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" th:field="*{imie}" required />
+        </div>
+        <div>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" th:field="*{nazwisko}" required />
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required />
+        </div>
+        <div>
+            <button type="submit">Zapisz</button>
+        </div>
+    </form>
+</body>
+</html>

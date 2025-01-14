@@ -7,6 +7,7 @@ import bd.grzyby.repository.PartiaRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PartiaService {
@@ -69,5 +70,9 @@ public class PartiaService {
     public void usunPartie(Long idPartia) {
         modyfikacjaPomService.usunModyfikacje(idPartia);
         partiaRepo.delete(partiaRepo.findPartiaById(idPartia));
+    }
+
+    public List<Partia> getPartie() {
+        return partiaRepo.findAll();
     }
 }

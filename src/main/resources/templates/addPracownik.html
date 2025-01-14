@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BD Projekt</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Dodaj Pracownika</h2>
+        <form th:action="@{/addPracownik}" method="post">
+            <div class="form-group">
+                <label for="imie">Imię</label>
+                <input type="text" id="imie" name="imie" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="nazwisko">Nazwisko</label>
+                <input type="text" id="nazwisko" name="nazwisko" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+    </div>
+</body>
+</html>

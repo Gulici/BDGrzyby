@@ -25,7 +25,6 @@ public class Boot implements CommandLineRunner {
     private final UprawnienieRepo uprawnienieRepo;
     private final PartiaRepo partiaRepo;
     private final PartiaService partiaService;
-    private final ModyfikacjaPomRepo modyfikacjaPomRepo;
     private final PracownikService pracownikService;
 
     public Boot(GatunekService gatunekService, PomieszczenieRepo pomieszczenieRepo, KlientRepo klientRepo, ZlecenieRepo zlecenieRepo, DetaleZleceniaRepo detaleZleceniaRepo, PracownikRepo pracownikRepo, UprawnienieRepo uprawnienieRepo, PartiaRepo partiaRepo, OcenaPartiiRepo ocenaPartiiRepo, DetaleOcenyRepo detaleOcenyRepo, PartiaService partiaService, ModyfikacjaPomService modyfikacjaPomService, ModyfikacjaPomRepo modyfikacjaPomRepo, PracownikService pracownikService) {
@@ -37,7 +36,6 @@ public class Boot implements CommandLineRunner {
         this.uprawnienieRepo = uprawnienieRepo;
         this.partiaRepo = partiaRepo;
         this.partiaService = partiaService;
-        this.modyfikacjaPomRepo = modyfikacjaPomRepo;
         this.pracownikService = pracownikService;
     }
 
@@ -50,34 +48,16 @@ public class Boot implements CommandLineRunner {
         dodajUprawnienia();
         dodajPracownikow();
         dodajPartie();
-        dodajModPom();
-        usunPartie();
-
-
     }
 
-    private void usunPartie() {
-        partiaService.usunPartie(1L);
-    }
-
-
-    private void dodajModPom() {
-        if(modyfikacjaPomRepo.findAll().isEmpty()) {
-            partiaService.przeniesPartie(1L,3L,1L);
-            partiaService.przeniesPartie(2L,2L,1L);
-        }
-    }
 
     private void dodajPartie() {
         if(partiaRepo.findAll().isEmpty()) {
             CreatePartiaForm form = new CreatePartiaForm(1L,2L,1L,1L,10);
             partiaService.dodajNowaPartie(form);
 
-            CreatePartiaForm form2 = new CreatePartiaForm(1L,1L,1L,1L,10);
+            CreatePartiaForm form2 = new CreatePartiaForm(1L,2L,1L,1L,10);
             partiaService.dodajNowaPartie(form2);
-
-            OcenaPartiiForm ocenaPartiiForm = new OcenaPartiiForm(1L,1L,5,"Ocena test");
-            partiaService.ocenPartie(ocenaPartiiForm);
         }
     }
 
@@ -93,15 +73,16 @@ public class Boot implements CommandLineRunner {
         if(pracownikRepo.findAll().isEmpty()) {
             PracownikForm form = new PracownikForm("Kamil", "Slimak", "k.s@gmail.com", "pass");
             pracownikService.dodajPracownik(form);
+
+            form = new PracownikForm("Ryszard", "Kierownik", "kiero@gmail.com", "pass");
+            pracownikService.dodajPracownik(form);
             Pracownik pracownik = pracownikRepo.getPracownikByEmail(form.getEmail());
-
             pracownikService.nadajUprawnieniaKierownika(pracownik.getId());
-            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
-            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
 
+            form = new PracownikForm("Adam", "Szef", "menager@gmail.com", "pass");
+            pracownikService.dodajPracownik(form);
+            pracownik = pracownikRepo.getPracownikByEmail(form.getEmail());
             pracownikService.nadajUprawnieniaManagera(pracownik.getId());
-            pracownikService.usunUprawnieniaKierownika(pracownik.getId());
-            pracownikService.usunUprawnieniaManagera(pracownik.getId());
         }
     }
 

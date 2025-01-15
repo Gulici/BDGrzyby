@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 @Controller
 public class landingPageController {
-    @GetMapping("/landingPage")
+    @GetMapping("/")
     public String landing(){
         return "landingPage";
     }

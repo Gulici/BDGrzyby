@@ -9,4 +9,4 @@ create schema Grzyby;
 ```
 ## Run
 Application have interface running on Tomcat web server on port 8080 with context path '/'.\
-To use it simply use url addres 'http://localhost:8080/' in internet browser.
+To open it simply use url addres 'http://localhost:8080/' in internet browser.

@@ -1,10 +1,13 @@
 package bd.grzyby.model.entity;
 
+import bd.grzyby.model.dto.RodzajEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,6 +15,8 @@ import org.hibernate.annotations.Cascade;
 @RequiredArgsConstructor
 @Table(name = "Detale_zlec")
 public class DetaleZlecenia {
+
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +28,9 @@ public class DetaleZlecenia {
     @JoinColumn(name = "id_zlecenie")
     private Zlecenie zlecenie;
     private int ilosc;
-    private int rodzaj;
+    private RodzajEnum rodzaj;
 
-    public DetaleZlecenia(Gatunek gatunek, Zlecenie zlecenie, int ilosc, int rodzaj) {
+    public DetaleZlecenia(Gatunek gatunek, Zlecenie zlecenie, int ilosc, RodzajEnum rodzaj) {
         this.gatunek = gatunek;
         this.zlecenie = zlecenie;
         this.ilosc = ilosc;

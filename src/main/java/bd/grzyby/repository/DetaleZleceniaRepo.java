@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetaleZleceniaRepo extends JpaRepository<DetaleZlecenia, Long> {
+    DetaleZlecenia getDetaleZleceniaById(Long id);
+
+    void deleteById(Long id);
 }

@@ -38,7 +38,7 @@ public class PartiaService {
         Partia newPartia = new Partia(zlecenie,gatunek,pomieszczenie,1,data);
 
         DetaleOceny detaleOceny = new DetaleOceny("Utworzono");
-        OcenaPartii ocenaPartii = new OcenaPartii(newPartia,detaleOceny,pracownik,form.getOcena(),1,data);
+        OcenaPartii ocenaPartii = new OcenaPartii(newPartia,detaleOceny,pracownik,form.getOcena(),1,data); // wcześniej form.getOcena()
         newPartia.getOcenyPartii().add(ocenaPartii);
 
         partiaRepo.save(newPartia);

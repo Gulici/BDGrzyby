@@ -3,6 +3,8 @@ package bd.grzyby.controller;
 import bd.grzyby.model.dto.ZlecenieForm;
 import bd.grzyby.model.entity.Zlecenie;
 import bd.grzyby.service.ZlecenieService;
+import bd.grzyby.service.KlientService;
+import bd.grzyby.model.entity.Klient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +18,12 @@ public class ZlecenieController {
 
     private final ZlecenieService zlecenieService;
 
+    private final KlientService klientService;
+
     @Autowired
-    public ZlecenieController(ZlecenieService zlecenieService) {
+    public ZlecenieController(ZlecenieService zlecenieService, KlientService klientService) {
         this.zlecenieService = zlecenieService;
+        this.klientService = klientService;
     }
 
     // Display all orders
@@ -29,10 +34,10 @@ public class ZlecenieController {
         return "zlecenie"; // Matches the zlecenia.html template
     }
 
-    // Show form to add a new order
     @GetMapping("/add")
     public String addZlecenieForm(Model model) {
         model.addAttribute("zlecenie", new Zlecenie());
+        model.addAttribute("klienci", klientService.findAllKlienci());
         return "addZlecenie"; // You need a template for adding an order
     }
 

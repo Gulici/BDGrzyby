@@ -25,7 +25,7 @@ public class Zlecenie {
     private Klient klient;
     private Date data;
 
-    @OneToMany(mappedBy = "zlecenie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "zlecenie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DetaleZlecenia> detaleZlecenia;
 
     public Zlecenie(Klient klient, Date data) {

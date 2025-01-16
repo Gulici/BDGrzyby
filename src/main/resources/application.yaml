@@ -15,6 +15,7 @@ spring:
     user:
       name: admin
       password: admin
+      roles: PRACOWNIK,KIEROWNIK,MANAGER
 
   profiles:
     active: security

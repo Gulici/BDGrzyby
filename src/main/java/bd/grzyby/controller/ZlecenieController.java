@@ -1,7 +1,11 @@
 package bd.grzyby.controller;
 
+import bd.grzyby.model.dto.DetaleZleceniaForm;
+import bd.grzyby.model.dto.RodzajEnum;
 import bd.grzyby.model.dto.ZlecenieForm;
+import bd.grzyby.model.entity.DetaleZlecenia;
 import bd.grzyby.model.entity.Zlecenie;
+import bd.grzyby.service.GatunekService;
 import bd.grzyby.service.ZlecenieService;
 import bd.grzyby.service.KlientService;
 import bd.grzyby.model.entity.Klient;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,11 +24,13 @@ public class ZlecenieController {
     private final ZlecenieService zlecenieService;
 
     private final KlientService klientService;
+    private final GatunekService gatunekService;
 
     @Autowired
-    public ZlecenieController(ZlecenieService zlecenieService, KlientService klientService) {
+    public ZlecenieController(ZlecenieService zlecenieService, KlientService klientService, GatunekService gatunekService) {
         this.zlecenieService = zlecenieService;
         this.klientService = klientService;
+        this.gatunekService = gatunekService;
     }
 
     // Display all orders
@@ -36,8 +43,9 @@ public class ZlecenieController {
 
     @GetMapping("/add")
     public String addZlecenieForm(Model model) {
-        model.addAttribute("zlecenie", new Zlecenie());
+        model.addAttribute("zlecenie", new ZlecenieForm());
         model.addAttribute("klienci", klientService.findAllKlienci());
+        model.addAttribute("gatunki", gatunekService.getAllGatunek());
         return "addZlecenie"; // You need a template for adding an order
     }
 
@@ -53,24 +61,63 @@ public class ZlecenieController {
     public String editZlecenieForm(@PathVariable Long id, Model model) {
         Zlecenie zlecenie = zlecenieService.getZlecenieById(id);
         model.addAttribute("zlecenie", zlecenie);
+        model.addAttribute("gatunki", gatunekService.getAllGatunek());
         return "editZlecenie"; // You need a template for editing an order
     }
 
-    // // Handle form submission for editing an order
-    // @PostMapping("/edit/{id}")
-    // public String editZlecenie(@PathVariable Long id, @ModelAttribute("zlecenie") Zlecenie zlecenie) {
-    //     Zlecenie existingZlecenie = zlecenieService.getZlecenieById(id);
-    //     existingZlecenie.setData(zlecenie.getData());
-    //     existingZlecenie.setKlient(zlecenie.getKlient());
-    //     existingZlecenie.setStatus(zlecenie.getStatus());
-    //     zlecenieService.saveZlecenie(existingZlecenie);
-    //     return "redirect:/zlecenia";
-    // }
+    @GetMapping("/edit/{id}/detal")
+    public String addDetalForm(@PathVariable Long id, Model model) {
+        Zlecenie zlecenie = zlecenieService.getZlecenieById(id);
+        DetaleZleceniaForm form = new DetaleZleceniaForm();
+        model.addAttribute("form", form);
+        model.addAttribute("zlecenie", zlecenie);
+        model.addAttribute("gatunki", gatunekService.getAllGatunek());
+        model.addAttribute("rodzaje", RodzajEnum.values());
+        return "addDetalZlec";
+    }
 
-    // // Delete an order
-    // @GetMapping("/delete/{id}")
-    // public String deleteZlecenie(@PathVariable Long id) {
-    //     zlecenieService.deleteZlecenie(id);
-    //     return "redirect:/zlecenia";
-    // }
+    @PostMapping("/edit/{id}/detal")
+    public String addDetal(@PathVariable Long id, @ModelAttribute("form") DetaleZleceniaForm form) {
+        if (form.getIlosc()<1) return "redirect:/zlecenie/edit/{id}";
+        Zlecenie zlecenie = zlecenieService.getZlecenieById(id);
+        zlecenieService.dodajDetale(form, zlecenie.getId());
+        return "redirect:/zlecenie/edit/{id}";
+    }
+
+    // Show form to edit an existing order
+    @GetMapping("/edit/{id}/{idDet}")
+    public String editZlecenieDetaleForm(@PathVariable Long id, @PathVariable Long idDet, Model model) {
+        Zlecenie zlecenie = zlecenieService.getZlecenieById(id);
+        DetaleZlecenia detaleZlecenia = zlecenieService.getDetaleZleceniaById(idDet);
+        DetaleZleceniaForm form = new DetaleZleceniaForm(
+                detaleZlecenia.getGatunek().getId(),
+                detaleZlecenia.getIlosc(),
+                detaleZlecenia.getRodzaj());
+        model.addAttribute("rodzaje", RodzajEnum.values());
+        model.addAttribute("form", form);
+        model.addAttribute("detal", detaleZlecenia);
+        model.addAttribute("zlecenie", zlecenie);
+        model.addAttribute("gatunki", gatunekService.getAllGatunek());
+        return "editDetaleZlec"; // You need a template for editing an order
+    }
+
+    @PostMapping("/edit/{id}/{idDet}")
+    public String editZlecenieDetale(@PathVariable Long id, @ModelAttribute("form") DetaleZleceniaForm form, @PathVariable Long idDet) {
+        if(form.getIlosc()<1) return "redirect:/zlecenie/edit/{id}";
+        zlecenieService.edytujDetale(form,id,idDet);
+        return "redirect:/zlecenie/edit/{id}";
+    }
+
+    @GetMapping("/edit/{id}/{idDet}/remove")
+    public String deleteZlecenieDetale(@PathVariable Long id,  @PathVariable Long idDet) {
+        zlecenieService.usunDetale(id,idDet);
+        return "redirect:/zlecenie/edit/{id}";
+    }
+
+     // Delete an order
+     @GetMapping("/delete/{id}")
+     public String deleteZlecenie(@PathVariable Long id) {
+         zlecenieService.usunZlecenie(id);
+         return "redirect:/zlecenie";
+     }
 }

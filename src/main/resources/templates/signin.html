@@ -31,15 +31,35 @@
   </nav>
 
   <div class="jumbotron bg-white shadow rounded p-4">
-    <div class="form-group mb-3">
-      <label for="login">Login</label>
-      <input id="login" type="text" class="form-control">
+    <div class="row">
+      <form th:action="@{/authenticate}" method="post">
+        <!--            errors etc-->
+        <div th:if="${param.error}" class="alert alert-danger col-xs-offset-1 col-xs-10">
+          Invalid username/password.
+        </div>
+        <div th:if="${param.success}" class="alert alert-success col-xs-offset-1 col-xs-10">
+          You have logged in.
+        </div>
+        <!--        form-->
+        <div class="form-group mb-2 mt-2">
+          <label class="form-label" for="username"> Email </label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="email@example.com">
+        </div>
+        <div class="form-group mb-3">
+          <label class="form-label" for="password">Hasło</label>
+          <input type="password" class="form-control" name="password" id="password" placeholder="hasło">
+        </div>
+        <!--        submit button-->
+        <div class="form-group">
+          <div class="row">
+            <div class="col-3">
+              <input type="submit" name="login-submit" id="login-submit"
+                     class="form-control btn btn-primary w-100" value="Zaloguj"input>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="form-group mb-4">
-      <label for="password">Hasło</label>
-      <input id="password" type="password" class="form-control">
-    </div>
-    <button class="btn btn-success w-100">Zaloguj się!</button>
   </div>
 
   <footer class="footer text-center mt-4">

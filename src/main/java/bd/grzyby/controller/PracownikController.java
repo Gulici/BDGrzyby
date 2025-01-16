@@ -6,11 +6,7 @@ import bd.grzyby.model.entity.Pracownik;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import bd.grzyby.service.PracownikService;
 
@@ -27,7 +23,7 @@ public class PracownikController {
         this.pracownikService = pracownikService;
     }
 
-    @GetMapping("/Pracownik")
+    @GetMapping("/pracownik")
     public String showPracownicy(Model model) {
         List<Pracownik> pracownicy = pracownikService.getPracownicy();
         model.addAttribute("pracownicy", pracownicy);

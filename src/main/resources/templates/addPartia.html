@@ -13,29 +13,21 @@
     <form th:action="@{/partie/addPartia}" th:object="${partia}" method="post">
         <div class="mb-3">
             <label for="zlecenie" class="form-label">Zlecenie</label>
-            <select id="zlecenie" th:field="*{zlecenie}" class="form-control" required>
+            <select id="zlecenie" th:field="*{idZlecenie}" class="form-control" required>
                 <option th:each="zlecenie : ${zlecenia}" th:value="${zlecenie.id}" th:text="${zlecenie.id}"></option>
             </select>
         </div>
         <div class="mb-3">
             <label for="gatunek" class="form-label">Gatunek</label>
-            <select id="gatunek" th:field="*{gatunek}" class="form-control" required>
+            <select id="gatunek" th:field="*{idGatunek}" class="form-control" required>
                 <option th:each="gatunek : ${gatunki}" th:value="${gatunek.id}" th:text="${gatunek.nazwa}"></option>
             </select>
         </div>
         <div class="mb-3">
             <label for="pomieszczenie" class="form-label">Pomieszczenie</label>
-            <select id="pomieszczenie" th:field="*{pomieszczenie}" class="form-control" required>
+            <select id="pomieszczenie" th:field="*{idPomieszczenie}" class="form-control" required>
                 <option th:each="pomieszczenie : ${pomieszczenia}" th:value="${pomieszczenie.id}" th:text="${pomieszczenie.id}"></option>
             </select>
-        </div>
-        <div class="mb-3">
-            <label for="etap" class="form-label">Etap</label>
-            <input type="number" id="etap" th:field="*{etap}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="data" class="form-label">Data</label>
-            <input type="date" id="data" th:field="*{data}" class="form-control" required>
         </div>
         <div class="text-end">
             <button type="submit" class="btn btn-success">Zapisz</button>

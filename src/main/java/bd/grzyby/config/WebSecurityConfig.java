@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/signin")
                         .loginProcessingUrl("/authenticate")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/Pracownicy")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll)

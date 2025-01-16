@@ -23,7 +23,7 @@ public class PracownikController {
         this.pracownikService = pracownikService;
     }
 
-    @GetMapping("/pracownik")
+    @GetMapping("/Pracownicy")
     public String showPracownicy(Model model) {
         List<Pracownik> pracownicy = pracownikService.getPracownicy();
         model.addAttribute("pracownicy", pracownicy);
@@ -52,12 +52,12 @@ public class PracownikController {
     public String updatePracownik(@PathVariable Long id, @ModelAttribute Pracownik pracownik) {
         pracownik.setId(id); // Ensure the ID is maintained.
         pracownikService.updatePracownik(pracownik);
-        return "redirect:/Pracownik";
+        return "redirect:/Pracownicy";
     }
 
     @GetMapping("/pracownicy/delete/{id}")
     public String deletePracownik(@PathVariable Long id) {
         pracownikService.usunPracownik(id);
-        return "redirect:/Pracownik";
+        return "redirect:/Pracownicy";
     }
 }

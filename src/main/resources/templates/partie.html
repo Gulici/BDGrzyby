@@ -38,9 +38,10 @@
             <td th:text="${partia.etap}"></td>
             <td th:text="${#dates.format(partia.data, 'yyyy-MM-dd')}"></td>
             <td>
-                <!-- <a th:href="@{/partie/transfer/{id}(id=${partia.id})}" class="btn btn-primary btn-sm">Przenieś</a>
+                <a th:href="@{/partie/transfer/{id}(id=${partia.id})}" class="btn btn-primary btn-sm me-2">Przenieś</a>
+                <a th:href="@{/partie/rate/{id}(id=${partia.id})}" class="btn btn-info btn-sm me-2">Oceń jakość partii</a>
                 <a th:href="@{/partie/delete/{id}(id=${partia.id})}" class="btn btn-danger btn-sm"
-                   onclick="return confirm('Czy na pewno chcesz usunąć tę partię?');">Usuń</a> -->
+                   onclick="return confirm('Czy na pewno chcesz usunąć tę partię?');">Usuń</a>
             </td>
         </tr>
         </tbody>

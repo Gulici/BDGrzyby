@@ -40,8 +40,8 @@ public class WebSecurityConfig {
                         ,"/partie/add","/partie/addPartia","/partie/transfer","/partie/transfer/").hasRole("PRACOWNIK")
                         .requestMatchers("/zlecenie/*","/klienci","/klienci/*"
                                 ,"/partie/*","/zlecenie/edit/*/*/remove","/zlecenie/edit/*/*","/zlecenie/delete/").hasRole("KIEROWNIK")
-                        .requestMatchers("/gatunki/*","/gatunki/add","/gatunki/delete/","gatunki/edit/*"
-                                ,"/pracownicy","/pracownicy/*","pracownicy/delete/","/pracownicy/edit/").hasRole("MANAGER")
+                        .requestMatchers("/gatunki/*","/gatunki/add","/gatunki/delete/","/gatunki/edit/*"
+                                ,"/Pracownicy","/Pracownicy/*","/Pracownicy/delete/","/Pracownicy/edit/","/add").hasRole("MANAGER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

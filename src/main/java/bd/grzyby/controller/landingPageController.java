@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 @Controller
+@RequestMapping("/")
 public class landingPageController {
     @GetMapping("/")
     public String landing(){
         return "landingPage";
     }
 
-    @RequestMapping("/signin")
+    @GetMapping("/signin")
     public String handleSigninButton(){
         return "signin";
     }

@@ -1,7 +1,9 @@
 package bd.grzyby.service;
 
 import bd.grzyby.model.entity.Klient;
+import bd.grzyby.model.entity.Zlecenie;
 import bd.grzyby.repository.KlientRepo;
+import bd.grzyby.repository.ZlecenieRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,11 @@ import java.util.List;
 public class KlientService {
 
     private final KlientRepo klientRepo;
+    private final ZlecenieRepo zlecenieRepo;
 
-    public KlientService(KlientRepo klientRepo) {
+    public KlientService(KlientRepo klientRepo, ZlecenieRepo zlecenieRepo) {
         this.klientRepo = klientRepo;
+        this.zlecenieRepo = zlecenieRepo;
     }
 
     // Retrieve all clients
@@ -44,6 +48,9 @@ public class KlientService {
 
     // Delete a client by ID
     public void deleteKlient(Long id) {
-        klientRepo.deleteById(id);
+        Klient k  = klientRepo.getKlientById(id);
+        if(!zlecenieRepo.existsZlecenieByKlient(k)) {
+            klientRepo.deleteById(id);
+        }
     }
 }

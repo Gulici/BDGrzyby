@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="/">
     <link rel="icon" href="../../../../favicon.ico">
 
     <title>BD Projekt</title>
@@ -19,19 +20,23 @@
 
 <body style="text-decoration-style: solid;">
 
+<!--navbar-->
+
+<div th:insert="~{navbar}"></div>
+
 <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
     <div class="header text-center">
         <h1 class="text-muted" style="margin-bottom: 1cm">System Zarządzania Pieczarkarnią</h1>
         <nav>
             <ul class="nav nav-pills justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../landingPage">Strona główna <span class="sr-only"></span></a>
+                    <a class="nav-link active" href="/">Strona główna <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../aboutproject">O projekcie</a>
+                    <a class="nav-link" href="/aboutproject">O projekcie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../signin">Autorzy</a>
+                    <a class="nav-link" href="/authors">Autorzy</a>
                 </li>
             </ul>
         </nav>
@@ -41,13 +46,10 @@
         <!-- Add the image here -->
 
         <h1 class="display-5">Dzień dobry!</h1>
-        <p class="lead">Jaki kurwa dobry? Dobry to by był, jakbym był na grzybach</p>
-        <img src="../static/landingPageThemeImage.jpg" alt="Mushroom Fields" class="img-fluid mx-auto d-block mb-4" style="max-width: 40%; height: auto;">
+        <p class="lead">Witam w aplikacji do zarządzania Pieczarkanią</p>
+<!--        <img src="../static/landingPageThemeImage.jpg" alt="Mushroom Fields" class="img-fluid mx-auto d-block mb-4" style="max-width: 40%; height: auto;">-->
         <hr class="my-4">
         <p>Dostęp do bazy danych Pieczarkarni jedynie dla zalogowanych pracowników.</p>
-        <form action="../signin">
-            <button type="submit" class="btn btn-primary">Zaloguj się!</button>
-        </form>
     </div>
 
     <footer class="footer text-center mt-auto">

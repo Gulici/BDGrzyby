@@ -8,6 +8,7 @@ import bd.grzyby.service.PomieszczenieService;
 import bd.grzyby.service.ZlecenieService;
 import bd.grzyby.service.PracownikService;
 import bd.grzyby.model.dto.CreatePartiaForm;
+import bd.grzyby.model.dto.OcenaPartiiForm;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -81,6 +82,19 @@ public class PartiaController {
         Long idPartia = Long.parseLong(id);
         Pracownik pracownik = pracownikService.getPracownik(userDetails.getUsername());
         partiaService.przeniesPartie(idPartia, idPom, pracownik.getId());
+        return "redirect:/partie";
+    }
+
+    @GetMapping("/rate/{id}")
+    public String showRateForm(Model model, @PathVariable Long id) {
+        model.addAttribute("id", id);
+        return "ratePartia";
+    }
+
+    @PostMapping("/rate/{id}")
+    public String ratePartia(@PathVariable Long id, @RequestParam int ocena, @RequestParam String opis, @AuthenticationPrincipal UserDetails userDetails) {
+        Long idPracownik = pracownikService.getPracownik(userDetails.getUsername()).getId();
+        partiaService.ocenPartie(new OcenaPartiiForm(id, idPracownik, ocena, opis));
         return "redirect:/partie";
     }
 }

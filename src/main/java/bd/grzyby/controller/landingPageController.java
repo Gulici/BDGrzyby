@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+
+
 @Controller
 public class landingPageController {
-    @GetMapping("/")
+    @GetMapping("/landingPage")
     public String landing(){
         return "landingPage";
     }
@@ -16,6 +18,11 @@ public class landingPageController {
     public String handleSigninButton(){
         return "signin";
     }
+
+    // @PostMapping("/signin")
+    // public String handleSigninButtonPost(){
+    //     return "Pracownicy";
+    // }
 
     @RequestMapping("/authors")
     public String authors(){

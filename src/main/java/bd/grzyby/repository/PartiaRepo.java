@@ -1,5 +1,6 @@
 package bd.grzyby.repository;
 
+import bd.grzyby.model.entity.Gatunek;
 import bd.grzyby.model.entity.Partia;
 import bd.grzyby.model.entity.Zlecenie;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,8 @@ public interface PartiaRepo extends JpaRepository<Partia, Long> {
     Partia findPartiaById(Long id);
 
     List<Partia> getPartiasByZlecenie(Zlecenie zlecenie);
+
+    Partia getFirstPartiaByGatunek(Gatunek gatunek);
+
+    boolean existsPartiaByGatunek(Gatunek gatunek);
 }

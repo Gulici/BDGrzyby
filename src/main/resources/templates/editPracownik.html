@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edytuj Pracownika</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+<body>
+<div th:insert="~{navbar}"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Edytuj Pracownika</h2>
+    <form th:action="@{/pracownicy/edit/{id}(id=${pracownik.id})}" th:object="${pracownik}" method="post">
+        <div>
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" th:field="*{imie}" required />
+        </div>
+        <div>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" th:field="*{nazwisko}" required />
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <a href="/Pracownicy" class="btn btn-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
+
+<div class="jumbotron text-center" style="padding: 30px;">
+    <h2>Pracownik</h2>
+
+    <div class="media-body pb-5 mb-0 medium lh-125 border-bottom">
+        <span class="d-block">Id: <a th:text = "${pracownik.id}"></a></span>
+        <span class="d-block">Imie i nazwisko: <a th:text = "${pracownik.imie} +' '+${pracownik.nazwisko}"></a></span>
+    </div>
+    <div>
+        <a th:href="@{/pracownicy/{id}/kier(id=${pracownik.id})}" class="btn btn-primary">Nadaj uprawnienia kierownika</a>
+        <a th:href="@{/pracownicy/{id}/men(id=${pracownik.id})}"  class="btn btn-primary">Nadaj uprawnienia menagera</a>
+    </div>
+    <h3>Uprawnienia</h3>
+    <table class="table mt-4">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Uprawnienie</th>
+            <th>Opcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="uprawnienie, iterStat : ${pracownik.getUprawnienia()}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${uprawnienie.nazwa}"></td>
+            <td>
+                <a th:href="@{/pracownicy/{id}/delete/{idUpr}(id=${pracownik.id}, idUpr=${uprawnienie.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this record?');">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@ import bd.grzyby.repository.PartiaRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PartiaService {
@@ -37,7 +38,7 @@ public class PartiaService {
         Partia newPartia = new Partia(zlecenie,gatunek,pomieszczenie,1,data);
 
         DetaleOceny detaleOceny = new DetaleOceny("Utworzono");
-        OcenaPartii ocenaPartii = new OcenaPartii(newPartia,detaleOceny,pracownik,form.getOcena(),1,data);
+        OcenaPartii ocenaPartii = new OcenaPartii(newPartia,detaleOceny,pracownik,form.getOcena(),1,data); // wcześniej form.getOcena()
         newPartia.getOcenyPartii().add(ocenaPartii);
 
         partiaRepo.save(newPartia);
@@ -60,6 +61,15 @@ public class PartiaService {
 
         partia.setPomieszczenie(pom);
         partia.setEtap(idPom.intValue());
+        OcenaPartii o = new OcenaPartii();
+        DetaleOceny d = new DetaleOceny("Przeniesiono z pomieszczenia: " + idPomP + " do: " + idPom);
+        o.setDetale(d);
+        o.setData(new Date());
+        o.setPracownik(pracownik);
+        o.setOcena(partia.getOcenyPartii().getLast().getOcena());
+        o.setPartia(partia);
+        o.setEtap(partia.getEtap());
+        partia.getOcenyPartii().add(o);
 
         ModyfikacjaPom mod = new ModyfikacjaPom(partia, idPomP, idPom.intValue(),new Date(),pracownik,partia.getEtap());
         modyfikacjaPomService.dodajMod(mod);
@@ -69,5 +79,13 @@ public class PartiaService {
     public void usunPartie(Long idPartia) {
         modyfikacjaPomService.usunModyfikacje(idPartia);
         partiaRepo.delete(partiaRepo.findPartiaById(idPartia));
+    }
+
+    public List<Partia> getPartie() {
+        return partiaRepo.findAll();
+    }
+
+    public Partia getPartiaById(Long idPartia) {
+        return partiaRepo.findPartiaById(idPartia);
     }
 }

@@ -7,11 +7,11 @@ import java.util.List;
 
 @Data
 public class ZlecenieForm {
-    private final Long idKlient;
-    private List<DetaleZleceniaForm> detale;
-
+    private Long idKlient;
     public ZlecenieForm(Long idKlient) {
         this.idKlient = idKlient;
-        detale = new ArrayList<>();
+    }
+
+    public ZlecenieForm() {
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Partię</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{navbar}"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Dodaj Nową Partię</h2>
+    <form th:action="@{/partie/addPartia}" th:object="${partia}" method="post">
+        <div class="mb-3">
+            <label for="zlecenie" class="form-label">Zlecenie</label>
+            <select id="zlecenie" th:field="*{idZlecenie}" class="form-control" required>
+                <option th:each="zlecenie : ${zlecenia}" th:value="${zlecenie.id}" th:text="${zlecenie.id}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="gatunek" class="form-label">Gatunek</label>
+            <select id="gatunek" th:field="*{idGatunek}" class="form-control" required>
+                <option th:each="gatunek : ${gatunki}" th:value="${gatunek.id}" th:text="${gatunek.nazwa}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="pomieszczenie" class="form-label">Pomieszczenie</label>
+            <select id="pomieszczenie" th:field="*{idPomieszczenie}" class="form-control" required>
+                <option th:each="pomieszczenie : ${pomieszczenia}" th:value="${pomieszczenie.id}" th:text="${pomieszczenie.id}"></option>
+            </select>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">Zapisz</button>
+            <a th:href="@{/partie}" class="btn btn-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

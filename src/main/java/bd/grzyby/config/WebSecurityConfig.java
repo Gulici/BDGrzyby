@@ -35,11 +35,17 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/test").hasRole("PRACOWNIK")
-                        .anyRequest().permitAll()
+                        .requestMatchers("/","/signin","/aboutproject","/access-denied","/authors").permitAll()
+                        .requestMatchers("/partie","/zlecenie","/gatunki"
+                        ,"/partie/add","/partie/addPartia","/partie/transfer","/partie/transfer/", "/partie/rate/").hasRole("PRACOWNIK")
+                        .requestMatchers("/zlecenie/*","/klienci","/klienci/*"
+                                ,"/partie/delete/","/zlecenie/edit/*/*/remove","/zlecenie/edit/*/*","/zlecenie/delete/").hasRole("KIEROWNIK")
+                        .requestMatchers("/gatunki/*","/gatunki/add","/gatunki/delete/","/gatunki/edit/*","/Pracownicy/*/delete/"
+                                ,"/Pracownicy","/Pracownicy/*","/Pracownicy/*/kier","/Pracownicy/*/men","/Pracownicy/delete/","/Pracownicy/edit/","/add").hasRole("MANAGER")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
-                        .loginPage("/login")
+                        .loginPage("/signin")
                         .loginProcessingUrl("/authenticate")
                         .defaultSuccessUrl("/")
                         .permitAll()

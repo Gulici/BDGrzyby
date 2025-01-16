@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Opis projektu zarządzania pieczarkarnią">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>System Zarządzania Pieczarkarnią</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+  <style>
+    .tile {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <div class="text-center" style="width: 100%;">
+    <h3 class="text-muted mb-4" style="margin-top: 1cm">System Zarządzania Pieczarkarnią</h3>
+
+    <nav>
+      <ul class="nav nav-pills justify-content-center mb-4">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Strona Główna</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/aboutproject">O projekcie</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/authors">Autorzy</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="tile">
+          <h4>Cel projektu</h4>
+          <p>Projekt umożliwia efektywne zarządzanie etapami rozwoju grzybów, od mikoryzacji po sprzedaż, z automatycznym przypisywaniem pomieszczeń i monitorowaniem jakości.</p>
+        </div>
+        <div class="tile">
+          <h4>Główne funkcjonalności</h4>
+          <ul>
+            <li>Dodawanie nowych partii grzybów oraz gatunków.</li>
+            <li>Monitorowanie etapów produkcji i automatyczne przypomnienia o przeniesieniu partii.</li>
+            <li>Ocena jakości partii na każdym etapie.</li>
+            <li>Automatyczna wycena produktów końcowych z uwzględnieniem rabatów hurtowych.</li>
+            <li>Trzystopniowy system uprawnień dla pracowników (produkcja, kierownicy, menedżerowie).</li>
+          </ul>
+        </div>
+        <div class="tile">
+          <h4>Proces rozwoju</h4>
+          <p>Produkcja grzybów została podzielona na pięć etapów: mikoryzacja, inokulacja, kolonizacja, owocowanie i sprzedaż. Każdy etap wymaga specyficznych warunków środowiskowych, które są automatycznie przypisywane przez system.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h4>Technologie</h4>
+          <p>Baza danych została zaimplementowana w MySQL, a aplikacja korzysta z Spring Boot do backendu. Frontend został zrealizowany z użyciem silnika szablonów thymeleaf.</p>
+        </div>
+        <div class="tile">
+          <h4>Hierarchia pracowników</h4>
+          <p>Uprawnienia w systemie zostały podzielone na trzy poziomy, zapewniając kontrolę dostępu oraz możliwość delegowania zadań:</p>
+          <ul>
+            <li><strong>Pracownicy produkcji:</strong> tworzenie nowych partii, ocena jakości.</li>
+            <li><strong>Kierownicy:</strong> zarządzanie partiami, wycena produktów.</li>
+            <li><strong>Menedżerowie:</strong> zarządzanie pracownikami i dodawanie nowych gatunków grzybów.</li>
+          </ul>
+        </div>
+        <div class="tile">
+          <h4>Przypadki użycia</h4>
+          <p>System wspiera scenariusze takie jak dodanie nowego gatunku, przeniesienie partii, czy automatyczne powiadomienia o wymaganych działaniach. Dzięki temu procesy produkcyjne są bardziej zorganizowane i wydajne.</p>
+        </div>
+        <div class="tile">
+          <h4>Podsumowanie</h4>
+          <p>Dzięki zastosowaniu bazy danych i nowoczesnych technologii, system znacząco usprawnia zarządzanie pieczarkarnią, redukując błędy oraz zwiększając efektywność produkcji.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer text-center mt-4">
+      <p>© Informatyka Techniczna - Bazy Danych Projekt 2024</p>
+    </footer>
+
+  </div> <!-- /container -->
+</div>
+
+</body>
+</html>

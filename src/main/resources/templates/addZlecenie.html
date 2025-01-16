@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Zlecenie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{navbar}"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Dodaj Nowe Zlecenie</h2>
+    <form th:action="@{/zlecenie/add}" th:object="${zlecenie}" method="post">
+        <div class="mb-3">
+            <label for="klient" class="form-label">Klient</label>
+            <select id="klient" th:field="*{idKlient}" class="form-control" required>
+                <option th:each="klient : ${klienci}" th:value="${klient.id}" th:text="${klient.firma}"></option>
+            </select>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">Zapisz</button>
+            <a th:href="@{/zlecenie}" class="btn btn-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

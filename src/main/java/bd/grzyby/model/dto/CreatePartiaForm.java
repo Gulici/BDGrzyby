@@ -10,6 +10,9 @@ public class CreatePartiaForm {
     private Long idPracownik;
     private int ocena;
 
+    public CreatePartiaForm() {
+    }
+    
     public CreatePartiaForm(Long idZlecenie, Long idGatunek, Long idPomieszczenie, Long idPracownik, int ocena) {
         this.idZlecenie = idZlecenie;
         this.idGatunek = idGatunek;

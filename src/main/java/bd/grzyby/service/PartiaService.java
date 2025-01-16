@@ -75,4 +75,8 @@ public class PartiaService {
     public List<Partia> getPartie() {
         return partiaRepo.findAll();
     }
+
+    public Partia getPartiaById(Long idPartia) {
+        return partiaRepo.findPartiaById(idPartia);
+    }
 }

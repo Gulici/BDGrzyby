@@ -39,6 +39,10 @@ public class Partia {
         this.ocenyPartii = new ArrayList<>();
     }
 
+    public Long getId(){
+        return id;
+    }
+
     public Partia() {
         this.ocenyPartii = new ArrayList<>();
     }

@@ -37,17 +37,17 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/signin","/aboutproject","/access-denied","/authors").permitAll()
                         .requestMatchers("/partie","/zlecenie","/gatunki"
-                        ,"/partie/add","/partie/addPartia","/partie/transfer","/partie/transfer/").hasRole("PRACOWNIK")
+                        ,"/partie/add","/partie/addPartia","/partie/transfer","/partie/transfer/", "/partie/rate/").hasRole("PRACOWNIK")
                         .requestMatchers("/zlecenie/*","/klienci","/klienci/*"
-                                ,"/partie/*","/zlecenie/edit/*/*/remove","/zlecenie/edit/*/*","/zlecenie/delete/").hasRole("KIEROWNIK")
-                        .requestMatchers("/gatunki/*","/gatunki/add","/gatunki/delete/","/gatunki/edit/*"
-                                ,"/Pracownicy","/Pracownicy/*","/Pracownicy/delete/","/Pracownicy/edit/","/add").hasRole("MANAGER")
+                                ,"/partie/delete/","/zlecenie/edit/*/*/remove","/zlecenie/edit/*/*","/zlecenie/delete/").hasRole("KIEROWNIK")
+                        .requestMatchers("/gatunki/*","/gatunki/add","/gatunki/delete/","/gatunki/edit/*","/Pracownicy/*/delete/"
+                                ,"/Pracownicy","/Pracownicy/*","/Pracownicy/*/kier","/Pracownicy/*/men","/Pracownicy/delete/","/Pracownicy/edit/","/add").hasRole("MANAGER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/signin")
                         .loginProcessingUrl("/authenticate")
-                        .defaultSuccessUrl("/Pracownicy")
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll)

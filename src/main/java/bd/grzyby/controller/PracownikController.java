@@ -4,6 +4,8 @@ import bd.grzyby.model.dto.PracownikForm;
 import bd.grzyby.model.entity.Pracownik;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import bd.grzyby.service.PracownikService;
 
 import java.util.List;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 
 @Controller
@@ -38,7 +42,7 @@ public class PracownikController {
     @PostMapping("/addPracownik")
     public String addPracownik(PracownikForm form) {
         pracownikService.dodajPracownik(form);
-        return "redirect:/Pracownik";
+        return "redirect:/Pracownicy";
     }
 
     @GetMapping("/pracownicy/edit/{id}")
@@ -55,9 +59,40 @@ public class PracownikController {
         return "redirect:/Pracownicy";
     }
 
+    @GetMapping("/pracownicy/{id}/kier")
+    public String nadajUprawnieniaKier(@PathVariable Long id) {
+        pracownikService.nadajUprawnieniaKierownika(id);
+        return "redirect:/pracownicy/edit/" + id;
+    }
+
+    @GetMapping("/pracownicy/{id}/men")
+    public String nadajUprawnieniaMen(@PathVariable Long id) {
+        pracownikService.nadajUprawnieniaManagera(id);
+        return "redirect:/pracownicy/edit/" + id;
+    }
+
+    @GetMapping("/pracownicy/{id}/delete/{idUpr}")
+    public String usunUprawnienie(@PathVariable Long id,@PathVariable Long idUpr, @AuthenticationPrincipal UserDetails userDetails) {
+        Long idCur = pracownikService.getPracownik(userDetails.getUsername()).getId();
+        if(Objects.equals(idCur, id)) {
+            return "redirect:/pracownicy/edit/" + id;
+        }
+
+        if(idUpr == 2) {
+            pracownikService.usunUprawnieniaKierownika(id);
+        }
+        if(idUpr == 3) {
+            pracownikService.usunUprawnieniaManagera(id);
+        }
+        return "redirect:/pracownicy/edit/" + id;
+    }
+
     @GetMapping("/pracownicy/delete/{id}")
-    public String deletePracownik(@PathVariable Long id) {
-        pracownikService.usunPracownik(id);
+    public String deletePracownik(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+        Long idCur = pracownikService.getPracownik(userDetails.getUsername()).getId();
+        if(!Objects.equals(idCur, id)) {
+            pracownikService.usunPracownik(id);
+        }
         return "redirect:/Pracownicy";
     }
 }

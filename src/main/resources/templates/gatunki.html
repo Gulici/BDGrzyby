@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Gatunki</title>
@@ -12,7 +12,7 @@
     <h2 class="text-center mb-4">Lista Gatunków</h2>
 
     <div class="mb-3 text-end">
-        <a th:href="@{/gatunki/add}" class="btn btn-success">Dodaj Gatunek</a>
+        <a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/gatunki/add}" class="btn btn-success">Dodaj Gatunek</a>
     </div>
 
     <table class="table table-bordered">
@@ -30,8 +30,8 @@
             <td th:text="${gatunek.nazwa}"></td>
             <td th:text="${gatunek.cena}"></td>
             <td>
-                <a th:href="@{/gatunki/edit/{id}(id=${gatunek.id})}" class="btn btn-primary btn-sm">Edytuj</a>
-                <a th:href="@{/gatunki/delete/{id}(id=${gatunek.id})}"
+                <a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/gatunki/edit/{id}(id=${gatunek.id})}" class="btn btn-primary btn-sm">Edytuj</a>
+                <a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/gatunki/delete/{id}(id=${gatunek.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="return confirm('Czy na pewno chcesz usunąć ten gatunek?');">Usuń</a>
             </td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
 <div class="container mt-4">
     <h2 class="text-center">Tabela Klientów</h2>
     <div class="d-flex justify-content-end mb-3">
-        <a href="/klienci/add" class="btn btn-success">Dodaj Klienta</a>
+        <a sec:authorize="hasRole('ROLE_KIEROWNIK')" href="/klienci/add" class="btn btn-success">Dodaj Klienta</a>
     </div>
 
     <table class="table table-striped">
@@ -34,8 +34,8 @@
                 <td th:text="${klient.nazwisko}"></td>
                 <td th:text="${klient.email}"></td>
                 <td>
-                    <a th:href="@{/klienci/edit/{id}(id=${klient.id})}" class="btn btn-primary btn-sm">Edytuj</a>
-                    <a th:href="@{/klienci/delete/{id}(id=${klient.id})}" class="btn btn-danger btn-sm"
+                    <a sec:authorize="hasRole('ROLE_KIEROWNIK')" th:href="@{/klienci/edit/{id}(id=${klient.id})}" class="btn btn-primary btn-sm">Edytuj</a>
+                    <a sec:authorize="hasRole('ROLE_KIEROWNIK')" th:href="@{/klienci/delete/{id}(id=${klient.id})}" class="btn btn-danger btn-sm"
                        onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?');">Usuń</a>
                 </td>
             </tr>

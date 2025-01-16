@@ -53,7 +53,9 @@ public class PartiaController {
     }
 
     @PostMapping("/addPartia")
-    public String createPartia(@ModelAttribute("partia") CreatePartiaForm form) {
+    public String createPartia(@ModelAttribute("partia") CreatePartiaForm form, @AuthenticationPrincipal UserDetails userDetails) {
+        Pracownik pracownik = pracownikService.getPracownik(userDetails.getUsername());
+        form.setIdPracownik(pracownik.getId());
         try {
             partiaService.dodajNowaPartie(form);
         } catch (Exception e) {
@@ -96,5 +98,14 @@ public class PartiaController {
         Long idPracownik = pracownikService.getPracownik(userDetails.getUsername()).getId();
         partiaService.ocenPartie(new OcenaPartiiForm(id, idPracownik, ocena, opis));
         return "redirect:/partie";
+    }
+
+    @GetMapping("/{id}/oceny")
+    public String ocenyPartii(@PathVariable Long id, Model model) {
+        Partia partia = partiaService.getPartiaById(id);
+        List<OcenaPartii> oceny = partia.getOcenyPartii();
+        model.addAttribute("partia", partia);
+        model.addAttribute("oceny", oceny);
+        return "ocenaPartii";
     }
 }

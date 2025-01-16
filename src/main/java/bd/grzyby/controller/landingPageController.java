@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 @Controller
 @RequestMapping("/")
 public class landingPageController {
-    @GetMapping("/landingPage")
+    @GetMapping()
     public String landing(){
         return "landingPage";
     }
@@ -19,11 +19,6 @@ public class landingPageController {
     public String handleSigninButton(){
         return "signin";
     }
-
-    // @PostMapping("/signin")
-    // public String handleSigninButtonPost(){
-    //     return "Pracownicy";
-    // }
 
     @RequestMapping("/authors")
     public String authors(){

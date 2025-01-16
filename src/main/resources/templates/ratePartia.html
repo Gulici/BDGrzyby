@@ -7,7 +7,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Oceń Partię</h1>
-        <form th:action="@{/rate/{id}(id=${id})}" method="post" class="mt-4">
+        <form th:action="@{/partie/rate/{id}(id=${id})}" method="post" class="mt-4">
             <!-- Rating Input -->
             <div class="mb-3">
                 <label for="ocena" class="form-label">Ocena (1-10):</label>

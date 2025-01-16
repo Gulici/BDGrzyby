@@ -61,6 +61,15 @@ public class PartiaService {
 
         partia.setPomieszczenie(pom);
         partia.setEtap(idPom.intValue());
+        OcenaPartii o = new OcenaPartii();
+        DetaleOceny d = new DetaleOceny("Przeniesiono z pomieszczenia: " + idPomP + " do: " + idPom);
+        o.setDetale(d);
+        o.setData(new Date());
+        o.setPracownik(pracownik);
+        o.setOcena(partia.getOcenyPartii().getLast().getOcena());
+        o.setPartia(partia);
+        o.setEtap(partia.getEtap());
+        partia.getOcenyPartii().add(o);
 
         ModyfikacjaPom mod = new ModyfikacjaPom(partia, idPomP, idPom.intValue(),new Date(),pracownik,partia.getEtap());
         modyfikacjaPomService.dodajMod(mod);

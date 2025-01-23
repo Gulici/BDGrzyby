@@ -36,7 +36,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/signin","/aboutproject","/access-denied","/authors").permitAll()
-                        .requestMatchers("/partie","/zlecenie","/gatunki"
+                        .requestMatchers("/partie","/zlecenie","/gatunki","/partie/*/oceny"
                         ,"/partie/add","/partie/addPartia","/partie/transfer","/partie/transfer/", "/partie/rate/").hasRole("PRACOWNIK")
                         .requestMatchers("/zlecenie/*","/klienci","/klienci/*"
                                 ,"/partie/delete/","/zlecenie/edit/*/*/remove","/zlecenie/edit/*/*","/zlecenie/delete/").hasRole("KIEROWNIK")
